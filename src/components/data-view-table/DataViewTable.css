@@ -1,0 +1,17 @@
+/* .data_view_header{
+  border: 1px solid red;
+
+}
+
+.data_view_header>td{
+  border: 1px solid yellow;
+} */
+
+td{
+  text-align: center;
+}
+.td_data_key{
+  color: #0353a4;
+  font-weight: 700 !important;
+  
+}

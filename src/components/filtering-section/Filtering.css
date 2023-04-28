@@ -1,0 +1,12 @@
+.filtering{
+  display: flex;
+  align-items: center;
+  width: 87%;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.multi_select{
+  width: 15%;
+}

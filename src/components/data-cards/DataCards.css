@@ -1,0 +1,29 @@
+.cards {
+  margin-top: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 222px;
+  background-color: #fff;
+  margin-bottom: 8px;
+  border-radius: none !important;
+}
+
+.table_title{
+  font-family: "Source Sans Pro";
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.28;
+  letter-spacing: normal;
+  text-align: left;
+  color: #4d4f5c;
+  margin-bottom: 8px;
+}
+
+.table_view_wrapper{
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+}
