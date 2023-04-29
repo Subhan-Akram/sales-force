@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './DataViewTable.css'
 import { TableWrapper } from '../../styleComponent/Style'
-function DataViewTable({ dataHeader, dataCol, data, tableKey }) {
-  console.log('this data', data, 'table key', tableKey)
+function DataViewTable({ data, tableKey }) {
+  console.log('this data=======>', data, 'table key', tableKey)
   const [mainKeys, setMainKeys] = useState([])
   const [headerKeys, setHeaderKeys] = useState([])
 
@@ -39,9 +39,9 @@ function DataViewTable({ dataHeader, dataCol, data, tableKey }) {
 
       console.log('seledted==>', selectedKeys)
       selectedKeys = selectedKeys.filter((val) => val != 'null')
-      debugger
+      // debugger
       if (selectedKeys.length > 0) {
-        debugger
+        // debugger
         if (selectedKeys[0].length != undefined) {
           setHeaderKeys((prev) => [...selectedKeys])
         } else {
@@ -49,9 +49,10 @@ function DataViewTable({ dataHeader, dataCol, data, tableKey }) {
         }
       } else {
         let tempKeys = []
-        if (subKeys.includes('Jan')) {
-          tempKeys.push('Years')
-        }
+        // close for now
+        // if (subKeys.includes('Jan')) {
+        //   tempKeys.push('Years')
+        // }
 
         setHeaderKeys([...tempKeys, ...subKeys])
       }
@@ -60,13 +61,34 @@ function DataViewTable({ dataHeader, dataCol, data, tableKey }) {
     }
   }
   useEffect(() => {
-    data?.map((val) => {
-      // debugger
-      // console.log("val===>",val)
-      let getKey = Object.keys(val)
-      console.log('key===>', getKey)
-      setMainKeys((prev) => [...prev, ...getKey])
-    })
+    let tempFilter = []
+
+    if (mainKeys.length == 0) {
+      data?.map((val) => {
+        // debugger
+        // console.log("val===>",val)
+        let getKey = Object.keys(val)
+
+        console.log('key===>', getKey)
+        // getKey.map(vals=>{
+        let vals = getKey[0]
+        // debugger
+        if (mainKeys.length > 0) {
+          for (let i = 0; i < mainKeys.length; i++) {
+            // debugger
+
+            if (!mainKeys.includes(vals)) {
+              tempFilter.push(vals)
+            }
+          }
+        } else {
+          tempFilter.push(vals)
+        }
+
+        // })
+      })
+      setMainKeys((prev) => [...tempFilter])
+    }
   }, [])
 
   useEffect(() => {
@@ -85,23 +107,35 @@ function DataViewTable({ dataHeader, dataCol, data, tableKey }) {
               <th>{val.toUpperCase()}</th>
             ))}
           </tr>
-          <tr className='data_view_header'>
-            <td className='td_data_key'>2017</td>
-            {mainKeys.length > 0 &&
-              headerKeys.length > 0 &&
-              data.map((val, i) => {
-                debugger
-                let dataCol = val[mainKeys[i]]
-                console.log('data col', dataCol)
 
-               return  dataCol != undefined && dataCol[headerKeys[i]] !== 'Years' ? (
-                  <td>{dataCol[headerKeys[i]]}</td>
-                ) : (
-                  //  <td>ss</td>
-                  <td>{dataCol}</td>
-                )
-              })}
-          </tr>
+          {/* {mainKeys.length>0 &&  mainKeys.map((val,i)=> <tr>
+          <td className='td_data_key'>{mainKeys[i]}</td>
+         </tr>
+                )} */}
+
+          {mainKeys.length > 0 &&
+            headerKeys.length > 0 &&
+            data.map((val, i) => {
+              debugger
+              // debugger
+              let dataCol = val[mainKeys[i]]
+              console.log('data col', dataCol)
+              let keysOfCurrentRow = Object.keys(dataCol)
+              let setColData
+             keysOfCurrentRow= keysOfCurrentRow.length==0?[mainKeys[i]]:keysOfCurrentRow
+              return (
+                <tr>
+                  {keysOfCurrentRow.map((vals) => {
+                    dataCol !== undefined &&
+                    dataCol[vals] !== undefined &&
+                    dataCol[vals] !== 'Years'
+                      ? (setColData = Math.floor(dataCol[vals]))
+                      : (setColData = dataCol)
+                    return <td>{`${Math.floor(setColData)}`.slice(0,4)}</td>
+                  })}
+                </tr>
+              )
+            })}
         </table>
       </TableWrapper>
     </div>

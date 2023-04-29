@@ -8,8 +8,8 @@ import { tableKeysVolume } from '../../utils/table-keys/TableColKeys'
 function DataCards({ title, data }) {
 
   const [tableDataKeys, setTableDataKeys] = useState([])
-  console.log("main data ",tableDataKeys)
-  useEffect(() => {
+  console.log("main data=======> ")
+   useEffect(() => {
     const keys = tableKeysVolume(title)
     if (keys !== 'null') {
       setTableDataKeys(keys)
